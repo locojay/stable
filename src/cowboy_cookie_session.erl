@@ -47,7 +47,7 @@ get({Name, Secret, _MaxAge, _Path}, Req) ->
 %% Store session in cookie.
 %% -----------------------------------------------------------------------------
 set(Session, {Name, Secret, undefined, Path}, Req) ->
-  Cookie = termit:encode_base64(Session, Secret),
+  Cookie = termit:issue_token(Session, Secret),
   cowboy_req:set_resp_cookie(Name, Cookie,
       [http_only, {path, Path}], Req);
 
